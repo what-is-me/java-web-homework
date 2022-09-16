@@ -1,0 +1,103 @@
+.signup-box {
+    display: block;
+    border-radius: 10px;
+    border: 1px #ddd solid;
+    background-color: #fff;
+    padding: 20px 26px !important;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 350px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.header {
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.2;
+    padding-bottom: 4px;
+}
+
+input[type=text],
+input[type=number],
+input[type=tel],
+input[type=password],
+input[type=date],
+input[type=email],
+input[type=search],
+select {
+    background-color: #fff;
+    height: 31px;
+    padding: 3px 7px;
+    line-height: normal;
+    border: 1px solid #a6a6a6;
+    border-top-color: #949494;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgb(255 255 255 / 50%), 0 1px 0 rgb(0 0 0 / 7%) inset;
+    margin: 0 auto;
+    font-size: 100%;
+    vertical-align: middle;
+    width: 100%;
+}
+
+label {
+    display: block;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    font-weight: 700;
+}
+
+input[type=radio] {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border: 1px solid #000;
+    overflow: hidden;
+    vertical-align: -13px;
+    text-align: center;
+    -webkit-appearance: none;
+    font: normal normal normal 14px/1 FontAwesome;
+    outline: 0;
+}
+
+input[type=radio]:checked:after {
+    content: '\221A';
+    font-size: 15px;
+    text-align: center;
+    line-height: 17px;
+    color: #000;
+}
+
+.submit-button {
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    background-color: #66ccff;
+    color: #000;
+    border-width: 0;
+    border-radius: 5px;
+}
+
+input[type=text],
+input[type=number],
+input[type=tel],
+input[type=password],
+input[type=date],
+input[type=email],
+input[type=search],
+select,
+.submit-button,
+input[type=radio],
+label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

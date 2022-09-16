@@ -1,0 +1,14 @@
+.bottom {
+    position: absolute;
+    top: 90%;
+    height: 8%;
+    padding-top: 2%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+    text-align: center;
+}
+
+.link {
+    color: white;
+}
