@@ -1,0 +1,247 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/basic.css">
+    <link rel="stylesheet" type="text/css" href="css/mainbody.css">
+    <link rel="stylesheet" type="text/css" href="css/bottom.css">
+    <title>Books</title>
+    <script>
+        goods = [
+            {
+                "img": "https://m.media-amazon.com/images/I/81us3pdU3YL._AC_UY218_.jpg",
+                "title": "2022 Newest Upgraded HP Laptops for College Student & Business, 14 inch FHD Computer, AMD Ryzen 3 3250U(Beat i5-7200U), 16GB RAM, 1TB SSD, Webcam, Fast Charge, Light-Weight, Windows 11, LIONEYE MP",
+                "cost": "$499.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61RrPtWecLL._AC_UY218_.jpg",
+                "title": "HP 14 inch FHD Display Laptop, AMD Ryzen 3 3250U (Beat i5 7200U), 8GB RAM, 128GB SSD, AMD Radeon Graphics, WiFi 6, Bluetooth, Windows 11 Bundle with JAWFOAL",
+                "cost": "$379.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61QGMX0Qy6L._AC_UY218_.jpg",
+                "title": "Lenovo Ideapad 3 Laptop, 15.6\" HD Touchscreen, 11th Gen Intel Core i3-1115G4 Processor, 8GB DDR4 RAM, 256GB PCIe NVMe SSD, HDMI, Webcam, Wi-Fi 5, Bluetooth, Windows 11 Home, Almond",
+                "cost": "$387.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71HoKYgPPnL._AC_UY218_.jpg",
+                "title": "2022 Newest HP 15.6\" HD Laptop Computer, Intel Celeron Quad-Core N4120(up to 2.6GHz), 16GB DDR4 RAM, 1TB SSD, HDMI, Bluetooth, Webcam, USB-C, RJ45 Ethernet, Windows 11S, Silver, JVQ Mousepad",
+                "cost": "$488.88"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71RD3vsjIYL._AC_UY218_.jpg",
+                "title": "HP 15.6-inch Laptop, 11th Generation Intel Core i5-1135G7, Intel Iris Xe Graphics, 8 GB RAM, 256 GB SSD, Windows 11 Home (15-dy2024nr, Natural silver)",
+                "cost": "$510.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71edE2j5zLL._AC_UY218_.jpg",
+                "title": "Acer Aspire 5 A515-56-32DK Slim Laptop - 15.6\" Full HD IPS Display - 11th Gen Intel i3-1115G4 Dual Core Processor - 4GB DDR4 - 128GB NVMe SSD - WiFi 6 - Windows 11 Home in S mode",
+                "cost": "$283.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61RsCj0s9aL._AC_UY218_.jpg",
+                "title": "2022 Newest HP 15.6\" HD Light-Weight Laptop for Home use and Student, 4-Core Intel i3-1125G4(Up to 3.7GHz,Beat i7-8565U), 16GB RAM, 512GB SSD, HDMI, Webcam, WiFi, Fast Charge, Numpad,w/GM Accessories",
+                "cost": "$649.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/31PDMby+BOL._AC_UY218_.jpg",
+                "title": "2021 HP Stream 14\" HD Laptop Computer, Intel Celeron N4020 Processor, 4GB RAM, 64GB eMMC, HD Audio, HD Webcam, Intel UHD Graphics 600, 1 Year Office, HDMI, Win 10 S, Jet Black, 32GB SnowBell USB Card",
+                "cost": "$255.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71GpmCe7wjL._AC_UY218_.jpg",
+                "title": "HP Pavilion 17.3\" FHD IPS Laptop Newest 2022, 11th Gen Intel Core i5-1135G7(up to 4.2 GHz), 16GB DDR4 RAM, 1TB PCIe SSD, Wi-Fi 5, Bluetooth, Windows 11, Silver, w/ 3in1 Accessories",
+                "cost": "$739.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71XIwK5G75L._AC_UY218_.jpg",
+                "title": "Lenovo IdeaPad 3 11 Chromebook Laptop, 11.6\" HD Display, Intel Celeron N4020, 4GB RAM, 64GB Storage, Intel UHD Graphics 600, Chrome OS, Onyx Black",
+                "cost": "$110.50"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61KLc+mj2GL._AC_UY218_.jpg",
+                "title": "2022 HP 14\" HD Display Laptop, AMD Ryzen 3-3250U, 8GB RAM, 128GB PCIe SSD, AMD Radeon Graphics, HP True Vision HD Camera, Bluetooth, Windows 11 S, Silver, 32GB Snow Bell USB Card",
+                "cost": "$289.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71clB0xqYOL._AC_UY218_.jpg",
+                "title": "HP Laptops for College Student & Business, 17 inch Laptop FHD Screen Computer, 2022 Newest Updated, 11th Gen Intel Core i5-1135G7, 16GB RAM, 1TB SSD, Fast Charge, HDMI, Webcam, Windows 11, ROKC MP",
+                "cost": "$699.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61oVhln2H8L._AC_UY218_.jpg",
+                "title": "2022 ASUS Student Laptop Computer (Military-Grade Duability), 11.6\" HD Eye-Care Dsiplay, Intel Celeron N4500, WiFi-6, 1 Year Accidental Damage Protection, Windows 10 Pro (4GB RAM | 256GB Storage)",
+                "cost": "$189.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71Dx5ylcdmL._AC_UY218_.jpg",
+                "title": "2022 Newest Lenovo IdeaPad Business Laptop, 15.6\" HD Touchscreen, 11th Gen Intel Core i3-1115G4 Processor, Intel UHD Graphics, 20GB RAM, 512GB PCIe NVMe SSD, Webcam, HDMI, Bluetooth 5.0, Windows 11",
+                "cost": "$549.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/81EdqveebRL._AC_UY218_.jpg",
+                "title": "2022 Newest HP Pavilion 15.6 HD Micro-Edge Laptop for Student and Home use, Intel Celeron N4120 4-Core(up to 2.6Ghz), 8GB RAM, 256GB SSD, Ethernet, Wi-Fi, Bluetooth, Numpad, Fast Charge, HDMI, Win11 S",
+                "cost": "$399.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/810BY5U9baL._AC_UY218_.jpg",
+                "title": "ASUS Laptop L210 11.6\u201d ultra thin, Intel Celeron N4020 Processor, 4GB RAM, 64GB eMMC storage, Windows 10 Home in S mode with One Year of Office 365 Personal, L210MA-DB01",
+                "cost": "$169.50"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/716frijAb7L._AC_UY218_.jpg",
+                "title": "2022 Newest HP Laptop with Microsoft Office Included 1-Year, 15.6\" HD Screen, AMD Athlon 3050U 16GB RAM 1TB SSD HDMI Port Webcam Gold White Windows 11 | College Student Bundle, ROKC HDMI Cable",
+                "cost": "$549.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/715aB0KGzhL._AC_UY218_.jpg",
+                "title": "BOCCONI 13.3\" Convertible 2 in 1 FHD Touchscreen Laptop, 8GB DDR4, 256GB M.2 SSD, Quad-Core Celeron N4100, Type-C Ports, AC WiFi + BT 4.0, Windows 11, Webcam, All-Metal Body",
+                "cost": "$349.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/81us3pdU3YL._AC_UY218_.jpg",
+                "title": "2022 Newest Upgraded HP Laptops for College Student & Business, 14 inch FHD Computer, AMD Ryzen 3 3250U(Beat i5-7200U), 16GB RAM, 1TB SSD, Webcam, Fast Charge, Light-Weight, Windows 11, LIONEYE MP",
+                "cost": "$499.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61RrPtWecLL._AC_UY218_.jpg",
+                "title": "HP 14 inch FHD Display Laptop, AMD Ryzen 3 3250U (Beat i5 7200U), 8GB RAM, 128GB SSD, AMD Radeon Graphics, WiFi 6, Bluetooth, Windows 11 Bundle with JAWFOAL",
+                "cost": "$379.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61QGMX0Qy6L._AC_UY218_.jpg",
+                "title": "Lenovo Ideapad 3 Laptop, 15.6\" HD Touchscreen, 11th Gen Intel Core i3-1115G4 Processor, 8GB DDR4 RAM, 256GB PCIe NVMe SSD, HDMI, Webcam, Wi-Fi 5, Bluetooth, Windows 11 Home, Almond",
+                "cost": "$387.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71HoKYgPPnL._AC_UY218_.jpg",
+                "title": "2022 Newest HP 15.6\" HD Laptop Computer, Intel Celeron Quad-Core N4120(up to 2.6GHz), 16GB DDR4 RAM, 1TB SSD, HDMI, Bluetooth, Webcam, USB-C, RJ45 Ethernet, Windows 11S, Silver, JVQ Mousepad",
+                "cost": "$488.88"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71RD3vsjIYL._AC_UY218_.jpg",
+                "title": "HP 15.6-inch Laptop, 11th Generation Intel Core i5-1135G7, Intel Iris Xe Graphics, 8 GB RAM, 256 GB SSD, Windows 11 Home (15-dy2024nr, Natural silver)",
+                "cost": "$510.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71edE2j5zLL._AC_UY218_.jpg",
+                "title": "Acer Aspire 5 A515-56-32DK Slim Laptop - 15.6\" Full HD IPS Display - 11th Gen Intel i3-1115G4 Dual Core Processor - 4GB DDR4 - 128GB NVMe SSD - WiFi 6 - Windows 11 Home in S mode",
+                "cost": "$283.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61RsCj0s9aL._AC_UY218_.jpg",
+                "title": "2022 Newest HP 15.6\" HD Light-Weight Laptop for Home use and Student, 4-Core Intel i3-1125G4(Up to 3.7GHz,Beat i7-8565U), 16GB RAM, 512GB SSD, HDMI, Webcam, WiFi, Fast Charge, Numpad,w/GM Accessories",
+                "cost": "$649.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/31PDMby+BOL._AC_UY218_.jpg",
+                "title": "2021 HP Stream 14\" HD Laptop Computer, Intel Celeron N4020 Processor, 4GB RAM, 64GB eMMC, HD Audio, HD Webcam, Intel UHD Graphics 600, 1 Year Office, HDMI, Win 10 S, Jet Black, 32GB SnowBell USB Card",
+                "cost": "$255.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71GpmCe7wjL._AC_UY218_.jpg",
+                "title": "HP Pavilion 17.3\" FHD IPS Laptop Newest 2022, 11th Gen Intel Core i5-1135G7(up to 4.2 GHz), 16GB DDR4 RAM, 1TB PCIe SSD, Wi-Fi 5, Bluetooth, Windows 11, Silver, w/ 3in1 Accessories",
+                "cost": "$739.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71XIwK5G75L._AC_UY218_.jpg",
+                "title": "Lenovo IdeaPad 3 11 Chromebook Laptop, 11.6\" HD Display, Intel Celeron N4020, 4GB RAM, 64GB Storage, Intel UHD Graphics 600, Chrome OS, Onyx Black",
+                "cost": "$110.50"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61KLc+mj2GL._AC_UY218_.jpg",
+                "title": "2022 HP 14\" HD Display Laptop, AMD Ryzen 3-3250U, 8GB RAM, 128GB PCIe SSD, AMD Radeon Graphics, HP True Vision HD Camera, Bluetooth, Windows 11 S, Silver, 32GB Snow Bell USB Card",
+                "cost": "$289.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71clB0xqYOL._AC_UY218_.jpg",
+                "title": "HP Laptops for College Student & Business, 17 inch Laptop FHD Screen Computer, 2022 Newest Updated, 11th Gen Intel Core i5-1135G7, 16GB RAM, 1TB SSD, Fast Charge, HDMI, Webcam, Windows 11, ROKC MP",
+                "cost": "$699.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61oVhln2H8L._AC_UY218_.jpg",
+                "title": "2022 ASUS Student Laptop Computer (Military-Grade Duability), 11.6\" HD Eye-Care Dsiplay, Intel Celeron N4500, WiFi-6, 1 Year Accidental Damage Protection, Windows 10 Pro (4GB RAM | 256GB Storage)",
+                "cost": "$189.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71Dx5ylcdmL._AC_UY218_.jpg",
+                "title": "2022 Newest Lenovo IdeaPad Business Laptop, 15.6\" HD Touchscreen, 11th Gen Intel Core i3-1115G4 Processor, Intel UHD Graphics, 20GB RAM, 512GB PCIe NVMe SSD, Webcam, HDMI, Bluetooth 5.0, Windows 11",
+                "cost": "$549.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/81EdqveebRL._AC_UY218_.jpg",
+                "title": "2022 Newest HP Pavilion 15.6 HD Micro-Edge Laptop for Student and Home use, Intel Celeron N4120 4-Core(up to 2.6Ghz), 8GB RAM, 256GB SSD, Ethernet, Wi-Fi, Bluetooth, Numpad, Fast Charge, HDMI, Win11 S",
+                "cost": "$399.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/810BY5U9baL._AC_UY218_.jpg",
+                "title": "ASUS Laptop L210 11.6\u201d ultra thin, Intel Celeron N4020 Processor, 4GB RAM, 64GB eMMC storage, Windows 10 Home in S mode with One Year of Office 365 Personal, L210MA-DB01",
+                "cost": "$169.50"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/716frijAb7L._AC_UY218_.jpg",
+                "title": "2022 Newest HP Laptop with Microsoft Office Included 1-Year, 15.6\" HD Screen, AMD Athlon 3050U 16GB RAM 1TB SSD HDMI Port Webcam Gold White Windows 11 | College Student Bundle, ROKC HDMI Cable",
+                "cost": "$549.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/715aB0KGzhL._AC_UY218_.jpg",
+                "title": "BOCCONI 13.3\" Convertible 2 in 1 FHD Touchscreen Laptop, 8GB DDR4, 256GB M.2 SSD, Quad-Core Celeron N4100, Type-C Ports, AC WiFi + BT 4.0, Windows 11, Webcam, All-Metal Body",
+                "cost": "$349.99"
+            }
+        ];
+        window.onload = function () {
+            table = document.getElementById("good_table");
+            let n = goods.length;
+            for (i = 0; i < n; i += 3) {
+                let row = document.createElement('div');
+                row.setAttribute("class", "outer-box");
+                table.appendChild(row)
+                for (j = 0; j < 3; j++) {
+                    if (i + j < n) {
+                        let cell = document.createElement('div');
+                        cell.setAttribute("class", "inner-box");
+                        row.appendChild(cell)
+                        cell.innerHTML = "<img src='" + goods[i + j]['img'] + "' class='img-limited'><br><span class='name'>" + goods[i + j]['title'] + "</span><br><span class='cost'>" + goods[i + j]['cost'] + "</span>";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png"
+            class="logo">
+        <span>
+            <h1 class="title">STORE OF WHAT-IS-ME</h1>
+        </span>
+    </div>
+    <div class="bottom">
+        <span style="font-family:arial;">Copyright &copy; </span> 2022 <a
+            href="https://github.com/what-is-me"
+            class="link">蔡钦成(what-is-me)</a>
+        <br />
+        <a href="index.html" class="link">注册链接(Sign up)</a>
+    </div>
+    <div class="main">
+        <div class="right">
+            <ul>
+                <li><strong>产品种类</strong></li>
+                <HR SIZE=1 class="line" color="black">
+                <li>
+                    <a href="page1-books.html">书籍</a>
+                </li>
+                <li>
+                    <a href="page2-phone.html">手机</a>
+                </li>
+                <li class="selected">
+                    <a href="page3-computer.html">电脑</a>
+                </li>
+            </ul>
+        </div>
+        <div class="left" id="good_table">
+        </div>
+    </div>
+</body>
+
+</html>

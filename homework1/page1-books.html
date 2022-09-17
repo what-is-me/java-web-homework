@@ -5,6 +5,177 @@
     <link rel="stylesheet" type="text/css" href="css/mainbody.css">
     <link rel="stylesheet" type="text/css" href="css/bottom.css">
     <title>Books</title>
+    <script>
+        goods = [
+            {
+                "cost": "$21.00",
+                "title": "The Simply Happy Cookbook: 100-Plus Recipes to Take the Stress Out of Cooking (The Happy Cookbook Series)",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81HE+JDes-L._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$9.98",
+                "title": "Where the Crawdads Sing",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81O1oy0y9eL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$11.26",
+                "title": "Verity",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/61tqfa+xbWL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$18.78",
+                "title": "I'm Glad My Mom Died",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/714l-Ja-VAL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$9.99",
+                "title": "It Ends with Us: A Novel (1)",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/71j0FLAauxL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$12.99",
+                "title": "It Starts with Us: A Novel (2) (It Ends with Us)",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/71PNGYHykrL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$20.43",
+                "title": "The Great Reset: And the War for the World",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/61clZgj1xZL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$20.47",
+                "title": "Fairy Tale",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81PMOtoT7zL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$9.57",
+                "title": "Reminders of Him: A Novel",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/617uZq23IPL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$17.32",
+                "title": "The Butcher and The Wren: A Novel",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81ZjXQY0+sL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$19.59",
+                "title": "Dinners with Ruth: A Memoir on the Power of Friendships",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/71W7cGUIo0L._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$26.09",
+                "title": "Good Inside: A Guide to Becoming the Parent You Want to Be",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/71RIWM0sv6L._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$27.00",
+                "title": "The Myth of Normal: Trauma, Illness, and Healing in a Toxic Culture",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/91LLM365h8L._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$9.99",
+                "title": "November 9: A Novel",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/61xkvfPVupL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$27.00",
+                "title": "Holding the Line: Inside the Nation's Preeminent US Attorney's Office and Its Battle with the Trump Justice Department",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/91xsywxYsnL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$27.49",
+                "title": "The Divider: Trump in the White House, 2017-2021",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/811zJIlF1AL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$24.99",
+                "title": "The Mosquito Bowl: A Game of Life and Death in World War II",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/71mrPrRGhkL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$21.99",
+                "title": "You Owe You: Ignite Your Power, Your Purpose, and Your Why",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81Jkw8nJUdL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$13.89",
+                "title": "Things We Never Got Over (Knockemout Series)",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/71dDj1W87kL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$23.06",
+                "title": "Like a Rolling Stone: A Memoir",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/814YCGJPGgL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$19.43",
+                "title": "Blowback: James Patterson's Best Thriller in Years",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81d6nS3KUHL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$18.51",
+                "title": "All Good People Here: A Novel",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81XQ1+piiiL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$18.19",
+                "title": "The Return of the Gods",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/913UqrSJf6L._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$11.91",
+                "title": "The Silent Patient",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/61Bdp7XZhDL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$19.87",
+                "title": "What If? 2: Additional Serious Scientific Answers to Absurd Hypothetical Questions",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/71xD1Mog4AL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$18.20",
+                "title": "Marriage Be Hard: 12 Conversations to Keep You Laughing, Loving, and Learning with Your Partner",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81GAJZrZ1uL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$12.32",
+                "title": "It Happened One Summer: A Novel",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81ZKf0rJk5L._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$23.99",
+                "title": "The Happy in a Hurry Cookbook: 100-Plus Fast and Easy New Recipes That Taste Like Home (The Happy Cookbook Series)",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/81QejsUEJgL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$32.99",
+                "title": "Harry Potter and the Order of the Phoenix: The Illustrated Edition (Harry Potter, Book 5) (Illustrated edition)",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/71NFcRl66bL._AC_UL127_SR127,127_.jpg"
+            },
+            {
+                "cost": "$10.49",
+                "title": "Confess: A Novel",
+                "img": "https://images-na.ssl-images-amazon.com/images/I/61kPERVIR4L._AC_UL127_SR127,127_.jpg"
+            }
+        ];
+        window.onload = function () {
+            table = document.getElementById("good_table");
+            let n = goods.length;
+            for (i = 0; i < n; i += 3) {
+                let row = document.createElement('div');
+                row.setAttribute("class", "outer-box");
+                table.appendChild(row)
+                for (j = 0; j < 3; j++) {
+                    if (i + j < n) {
+                        let cell = document.createElement('div');
+                        cell.setAttribute("class", "inner-box");
+                        row.appendChild(cell)
+                        cell.innerHTML = "<img src='" + goods[i + j]['img'] + "' class='img-limited'><br><span class='name'>" + goods[i + j]['title'] + "</span><br><span class='cost'>" + goods[i + j]['cost'] + "</span>";
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -38,11 +209,7 @@
                 </li>
             </ul>
         </div>
-        <div class="left">
-            <div class="outer-box">
-                <div class="inner-box">hello</div>
-                <div class="inner-box">hi</div>
-            </div>
+        <div class="left" id="good_table">
         </div>
     </div>
 </body>

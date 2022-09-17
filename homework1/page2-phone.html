@@ -1,0 +1,172 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/basic.css">
+    <link rel="stylesheet" type="text/css" href="css/mainbody.css">
+    <link rel="stylesheet" type="text/css" href="css/bottom.css">
+    <title>Books</title>
+    <script>
+        goods = [
+            {
+                "img": "https://m.media-amazon.com/images/I/71V-RjMmSBL._AC_UY218_.jpg",
+                "title": "UMIDIGI Cell Phone G1, Android12 Unlocked Cell Phone, Dual Sim 4G LTE Mobile Phone, 2+32GB 256G Expandable, 6.52\" HD+, 5150mAh, GSM Unlocked",
+                "cost": "$99.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71+3To9wWSS._AC_UY218_.jpg",
+                "title": "Mate40 Pro Unlocked Cell Phone Factory Unlocked Android Smartphone, 5.45in HD Full Screen 512MB ROM 4GB RAM 3G Dual SIM Unlocked Smartphones for Android 4.4.2 Face Unlock Ultra Slim Lightweight",
+                "cost": "$60.88"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/414EMI1NDZL._AC_UY218_.jpg",
+                "title": "GlocalMe Mini Turbo 4G LTE Mobile Hotspot, No SIM Card Needed, Portable WiFi Hotspot Unlock Device for Home or Travel in 140+ Countries,Smart Local Network Auto-Selection,with US 8GB&Global 1GB Data",
+                "cost": "$169.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61LuwMOvAGL._AC_UY218_.jpg",
+                "title": "Black Shark 4 Pro Unlocked Cell Phone, 5G Gaming Phone, Fast Charging 120W Android Phone 8+128GB, 144Hz Snapdragon 888 Smartphone, 6.67\" 48MP 4500mAh NFC Mobile Phone Global Version - Shadow Black",
+                "cost": "$499.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71uG3rCr0kL._AC_UY218_.jpg",
+                "title": "TCL 30XL |2022| Unlocked Cell Phone, 6.82 inch Vast Display, 5000mAh Battery, Android 12 Smartphone, 50MP AI Quad-Camera, 6GB RAM + 64GB ROM, US Version Mobile Phone, Dual Speaker Phone, Night Mist",
+                "cost": "$179.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/711RDeJNHaL._AC_UY218_.jpg",
+                "title": "TCL 30 Z 6.1 Inch Unlocked Cell Phone with HD+ Display, US Version Android 12 Smartphone 32GB+3GB RAM, 3000mAh Android Phone, Prime Black",
+                "cost": "$93.49"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61HqxMkgLKL._AC_UY218_.jpg",
+                "title": "OUKITEL C22 Unlocked Smartphone, Android 10 4GB+128GB Unlocked Cell Phone, Dual Sim 256GB Expandable 5.86'' 4000mAh Unlocked Phone, Face ID + Fingerprint GSM 4G LTE Smartphones (Green)",
+                "cost": "$135.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71EbIY-IIZL._AC_UY218_.jpg",
+                "title": "Rugged Smartphone Unlocked, Ulefone Armor X6 Pro(2022) IP69K Waterproof Phone, Android 12 4GB+32GB, 13MP+5MP, 5.0 inch, 4000mAh Battery, Global Dual 4G, NFC, Face ID Compass+GPS Shockproof (Orange)",
+                "cost": "$125.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61OK4t9RLaL._AC_UY218_.jpg",
+                "title": "Black Shark 4 Pro Unlocked Cell Phone, 5G Gaming Phone, Fast Charging 120W Android Phone 12+256GB, 144Hz Snapdragon 888 Smartphone, 6.67\" 48MP 4500mAh NFC Mobile Phone Global Version - Shadow Black",
+                "cost": "$599.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/81atA4BDF3L._AC_UY218_.jpg",
+                "title": "Simple Mobile Nokia C200 4G LTE Prepaid Smartphone (Locked) - 32GB - Black - Sim Card Included - GSM",
+                "cost": "$69.69"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/415k0OXtpiL._AC_UY218_.jpg",
+                "title": "HTC J Butterfly 3 Android Smartphone 4K Octacore HTV31 Red Unlocked au",
+                "cost": "$218.31"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61sxCWcyonL._AC_UY218_.jpg",
+                "title": "Alcatel 1T 7.0\" 9013A (16GB, WiFi + Cellular) Face Unlock, Android 10, GPS, Tablet + Phone US 4G Volte GSM Unlocked (T-Mobile, AT&T, Metro PCS, Straight Talk) (Prime Black)",
+                "cost": "$99.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71jIlDGHtoL._AC_UY218_.jpg",
+                "title": "Total Wireless Motorola Moto g Stylus (2022), 128GB, Blue - Prepaid Smartphone (Locked) - CDMA",
+                "cost": "$149.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61-fB+GkifL._AC_UY218_.jpg",
+                "title": "Net10 Alcatel TCL A3, 32GB, Black - Prepaid Smartphone (Locked)",
+                "cost": "$37.59"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71EGEerfYNL._AC_UY218_.jpg",
+                "title": "Black Shark 5 Pro Gaming Phone, 5G Factory Unlocked Android Smartphone, 12+256GB, 120W Fast Charging Snapdragon 8 Gen 1, 6.67\" 144Hz E-Sports OLED Display, 4650mAh NFC Cell Phones-Steller Black",
+                "cost": "$859.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71rw+F2aLHL._AC_UY218_.jpg",
+                "title": "Samsung Galaxy Tab S7+ Wi-Fi, Mystic Black - 512GB",
+                "cost": "$909.00"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/617rdFe542L._AC_UY218_.jpg",
+                "title": "BLU S91 | 2022 | 3-Day Battery | Unlocked | 6.5\u201d Full HD+ Display | 64/3GB | Triple Camera | US Version | US Warranty | Black",
+                "cost": "$129.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61LhSAqIfRL._AC_UY218_.jpg",
+                "title": "NUU X6 Plus | Verizon, AT&T and T-Mobile | 4G LTE Unlocked Android 10 Smartphone | 32GB + 3GB RAM | 6.1\" HD+ Display | 13 + 5 MP Camera | 3120 mAh Battery",
+                "cost": "$139.90"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/61C6NvWfIBL._AC_UY218_.jpg",
+                "title": "OUKITEL C22 Unlocked Smartphones (2021 New) 128GB/4GB Android 10 Unlocked Cell Phones with Dual Sim 256GB Expandable 5.86'' 4000mAh Face ID + Fingerprint GSM 4G LTE Phones",
+                "cost": "$135.99"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/81atA4BDF3L._AC_UY218_.jpg",
+                "title": "total wireless Nokia C200 4G LTE Prepaid Smartphone (Locked) - 32GB - Black - Sim Card Included - CDMA",
+                "cost": "$69.33"
+            },
+            {
+                "img": "https://m.media-amazon.com/images/I/71sAvF+YNkL._AC_UY218_.jpg",
+                "title": "Net10 Alcatel TCL A3X, 32GB, Prime Black - Prepaid Smartphone (Locked)",
+                "cost": "$69.99"
+            }
+        ];
+        window.onload = function () {
+            table = document.getElementById("good_table");
+            let n = goods.length;
+            for (i = 0; i < n; i += 3) {
+                let row = document.createElement('div');
+                row.setAttribute("class", "outer-box");
+                table.appendChild(row)
+                for (j = 0; j < 3; j++) {
+                    if (i + j < n) {
+                        let cell = document.createElement('div');
+                        cell.setAttribute("class", "inner-box");
+                        row.appendChild(cell)
+                        cell.innerHTML = "<img src='" + goods[i + j]['img'] + "' class='img-limited'><br><span class='name'>" + goods[i + j]['title'] + "</span><br><span class='cost'>" + goods[i + j]['cost'] + "</span>";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png"
+            class="logo">
+        <span>
+            <h1 class="title">STORE OF WHAT-IS-ME</h1>
+        </span>
+    </div>
+    <div class="bottom">
+        <span style="font-family:arial;">Copyright &copy; </span> 2022 <a
+            href="https://github.com/what-is-me"
+            class="link">蔡钦成(what-is-me)</a>
+        <br />
+        <a href="index.html" class="link">注册链接(Sign up)</a>
+    </div>
+    <div class="main">
+        <div class="right">
+            <ul>
+                <li><strong>产品种类</strong></li>
+                <HR SIZE=1 class="line" color="black">
+                <li>
+                    <a href="page1-books.html">书籍</a>
+                </li>
+                <li class="selected">
+                    <a href="page2-phone.html">手机</a>
+                </li>
+                <li>
+                    <a href="page3-computer.html">电脑</a>
+                </li>
+            </ul>
+        </div>
+        <div class="left" id="good_table">
+        </div>
+    </div>
+</body>
+
+</html>

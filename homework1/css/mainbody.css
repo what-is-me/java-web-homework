@@ -35,9 +35,11 @@
 }
 
 .left {
-    width: 70%;
+    width: 75%;
     position: absolute;
     left: 5%;
+    overflow-y: auto;
+    height: 100%
 }
 
 .selected {
@@ -50,16 +52,77 @@
 }
 
 .outer-box {
+    float: left;
+    display: block;
     width: 100%;
-    margin: 10px 0;
+    margin: 5px 0;
+    height: 250px;
 }
 
 .inner-box {
     border-radius: 5px;
-    padding: 3%;
-    margin: 2%;
+    padding: 1% 2%;
+    margin: 1%;
     display: inline;
     float: left;
-    width: 40%;
+    width: 25%;
     background-color: rgba(255, 255, 255, .5);
+    text-align: center;
+    height: 80%;
+}
+
+.name {
+    display: block;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -icab-text-overflow: ellipsis;
+    -khtml-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.cost {
+    color: #B12704 !important;
+    font-size: 20px;
+}
+
+.img-limited {
+    max-width: 100%;
+    max-height: 50%;
+    overflow: hodden;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    width: 6px;
+    background: rgba(#101F1C, 0.1);
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(144, 147, 153, .5);
+    background-clip: padding-box;
+    min-height: 28px;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+    transition: background-color .3s;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(144, 147, 153, .3);
 }
