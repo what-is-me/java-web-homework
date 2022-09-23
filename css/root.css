@@ -171,7 +171,7 @@ table th {
 table td {
     padding: 0px 8px;
     border: #2bf solid 1px;
-    background-color: rgba(128, 128, 128, 0.5);
+    background-color: rgba(128, 128, 128);
 }
 
 table td:hover {
