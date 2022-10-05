@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>试题页面</title>
+    <link rel='stylesheet' type='text/css' href='css.css'>
+    <style>
+        .form {
+            background: white;
+            margin: 5% auto 0;
+            width: 70%;
+            padding: 5%;
+            border-radius: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="form">
+        <div id="grade"></div>
+        <form name="exam" id="form" action="check" method="post">
+            <div class="info" style="margin: 0 auto;text-align: center;">
+                <h1>政治考试</h1>
+                <label style="display:inline;">姓名:</label>
+                <input type="text" name="name"
+                    style="display:inline;width:100px;">
+                <label style="display:inline;">学号:</label>
+                <input type="text" name="num"
+                    style="display:inline;width:100px;">
+            </div>
+            <div id="problems"></div>
+            <input type="submit" class="submit-button" id="submit" value="提交"
+                    style="margin-left:35%;width:30%;"></input>
+        </form>
+
+    </div>
+    <script>
+        function readTextFile(file, callback) {
+            let rawFile = new XMLHttpRequest();
+            rawFile.overrideMimeType("application/json");
+            rawFile.open("GET", file, true);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4 && rawFile.status == "200") {
+                    callback(rawFile.responseText);
+                }
+            }
+            rawFile.send(null);
+        }
+        let Problems = document.getElementById("problems")
+        readTextFile("Exam.json", function (text) {
+            const problems = JSON.parse(text);
+            const trans = {
+                "single-section": "单项选择",
+                "multi-section": "多项选择",
+                "judgement": "判断题",
+                "blank": "填空题",
+                "quiz": "简答题"
+            }
+            const toChinese = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"]
+            for (const T in problems) {
+                const prob_type = problems[T]
+                Problems.innerHTML += "<h2>" + toChinese[Number(T) + 1] + "、 " + trans[prob_type["type"]] + "</h2>"
+                if (prob_type["type"] == "single-section") {
+                    for (const i in prob_type["problems"]) {
+                        let prob = prob_type["problems"][i]
+                        Problems.innerHTML += "<p>" + (Number(i) + 1).toString() + ". " + prob["text"].replace(/\n/g, "<br>").replace(/ /g, "&nbsp;") + "</p > "
+                        for (const j in prob["args"]) {
+                            Problems.innerHTML += "<input type='radio' name='" + prob_type["type"] + "_" + i + "' value='" + j + "'>" + prob["args"][j] + "<br>"
+                        }
+                    }
+                } else if (prob_type["type"] == "multi-section") {
+                    for (const i in prob_type["problems"]) {
+                        let prob = prob_type["problems"][i]
+                        Problems.innerHTML += "<p>" + (Number(i) + 1).toString() + ". " + prob["text"].replace(/\n/g, "<br>").replace(/ /g, "&nbsp;") + "</p > "
+                        for (const j in prob["args"]) {
+                            Problems.innerHTML += "<input type='checkbox' name='" + prob_type["type"] + "_" + i + "' value='" + j + "'>" + prob["args"][j] + "<br>"
+                        }
+                    }
+                } else if (prob_type["type"] == "judgement") {
+                    const TF = ["正确", "错误"]
+                    for (const i in prob_type["problems"]) {
+                        let prob = prob_type["problems"][i]
+                        let tmp = "<p>" + (Number(i) + 1).toString() + ". " + prob["text"].replace(/\n/g, "<br>").replace(/ /g, "&nbsp;") + "</p> <label>答案: <select style='width:100px;display:inline;height:30px' name='" + prob_type["type"] + "_" + i + "'>"
+                        for (const j in TF) {
+                            tmp += "<option value='" + j + "'>" + TF[j] + "</option>"
+                        }
+                        Problems.innerHTML += tmp + "</label></select>"
+                    }
+                } else if (prob_type["type"] == "blank") {
+                    for (const i in prob_type["problems"]) {
+                        let prob = prob_type["problems"][i]
+                        Problems.innerHTML += "<p>" + (Number(i) + 1).toString() + ". " + prob["text"].replace(/\n/g, "<br>").replace(/ /g, "&nbsp;") + "</p> "
+                        Problems.innerHTML += "<label style='display:inline !important'>答案：</label><input style='display:inline;width:70%' type='text' name='" + prob_type["type"] + "_" + i + "' style='width:95%'>"
+                    }
+                } else if (prob_type["type"] == "quiz") {
+                    for (const i in prob_type["problems"]) {
+                        let prob = prob_type["problems"][i]
+                        Problems.innerHTML += "<p>" + (Number(i) + 1).toString() + ". " + prob["text"].replace(/\n/g, "<br>").replace(/ /g, "&nbsp;") + "</p > "
+                        Problems.innerHTML += "<label>输入答案</label><textarea rows='9' style='height:auto;width:97%' name='" + prob_type["type"] + "_" + i + "'>"
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+

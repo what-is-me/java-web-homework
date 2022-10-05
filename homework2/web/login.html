@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel='stylesheet' type='text/css' href='css.css'>
+    <style>
+        .signup-box {
+            display: block;
+            border-radius: 10px;
+            border: 1px #ddd solid;
+            background-color: #fff;
+            padding: 20px 26px !important;
+            display: block;
+            margin-top: 20px;
+            width: 350px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+<div class="signup-box">
+    <h1>登录</h1>
+    <form method="post" id="form">
+        <label>用户名</label>
+        <input type="text" name="username" style="box-sizing: border-box;height: 30px;">
+        <label>密码</label>
+        <input type="password" name="password" style="box-sizing: border-box;height: 30px;">
+        <input type="submit" class="submit-button">
+    </form>
+</div>
+<script>
+    function get(keyword) {
+        const reg = new RegExp("(^|&)" + keyword + "=([^&]*)(&|$)", "i")
+        const r = window.location.search.substring(1).match(reg)
+        if (r != null) return decodeURIComponent(r[2])
+        return null
+    }
+    const uid = get('next');
+    let form=document.getElementById("form")
+    form.setAttribute("action",uid)
+</script>
+</body>
