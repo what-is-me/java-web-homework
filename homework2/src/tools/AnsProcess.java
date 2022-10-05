@@ -48,7 +48,7 @@ public class AnsProcess {
             var kind = key.split("_")[0];
             switch (kind) {
                 case "single-section", "judgement" -> {
-                    if (ans.get(key).equals(val[0])) {
+                    if (val[0].equals(ans.get(key))) {
                         ret.addAndGet(1);
                         // System.out.println(key);
                     }
@@ -60,22 +60,22 @@ public class AnsProcess {
                     }
                 }
                 case "blank" -> {
-                    if (ans.get(key).equals(modify(val[0]))) {
+                    if (modify(val[0]).equals(ans.get(key))) {
                         ret.addAndGet(1);
                         // System.out.println(key);
                     }
                 }
                 case "quiz" -> {
                     int flag = 1;
-                    for (String keyword : (String[]) ans.get(key)) {
+                    for (String keyword : (String[]) ans.getOrDefault(key,new String[0])) {
                         if (!val[0].contains(keyword)) {
                             flag = 0;
                             break;
                         }
                     }
-                    if (flag == 1) {
+                    /*if (flag == 1) {
                         // System.out.println(key);
-                    }
+                    }*/
                     ret.addAndGet(flag);
                 }
             }
