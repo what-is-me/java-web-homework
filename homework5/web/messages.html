@@ -1,0 +1,35 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="5">
+    <title>Document</title>
+    <script
+        src="https://cdn.bootcdn.net/ajax/libs/marked/2.0.3/marked.js"></script>
+</head>
+
+<body>
+    <script>
+        const httpRequest = new XMLHttpRequest()
+        httpRequest.open('GET', 'msgs', true)
+        httpRequest.send();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                const msgs = JSON.parse(httpRequest.responseText)
+                for (const msg of msgs) {
+                    let formatMessage = "<span style='font-weight: bold;'>" + msg["sender"]
+                    if (msg["receiver"] != "all") formatMessage += "(私聊" + msg["receiver"] + ")"
+                    formatMessage += "</span>"
+                    formatMessage += "<span style='color: gray;font-style: italic;'>[" + msg["time"] + "]</span><br>"
+                    formatMessage += marked(msg["msg"])
+                    console.log(marked(msg["msg"]))
+                    document.body.innerHTML += formatMessage
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>

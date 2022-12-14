@@ -1,0 +1,516 @@
+/******************* "src\LoginServlet.java" ********************/
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+
+@WebServlet(name = "Login", urlPatterns = {"/login", "/user-info"})
+public class LoginServlet extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        var sess = req.getSession();
+        var name = req.getParameter("name");
+        var sex = req.getParameter("sex");
+        sess.setAttribute("name", name);
+        sess.setAttribute("sex", sex);
+        var con = req.getServletContext();
+        var users = (HashMap<String, UserInfo>) con.getAttribute("users");
+        if ("".equals(name) || (users != null && (users.containsKey(name) && new Date().getTime() - OnLineUsersServlet.TIMEOUT < users.get(name).time))) {
+            resp.sendRedirect("login.html");
+            return;
+        }
+        UserLastAccessUpdater.updateLastTime(req);
+        resp.sendRedirect("index.html");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var sess = req.getSession();
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        var name = (String) sess.getAttribute("name");
+        var sex = (String) sess.getAttribute("sex");
+        UserLastAccessUpdater.updateLastTime(req);
+        resp.getWriter().printf("{\"name\":\"%s\",\"sex\":\"%s\"}", name, sex);
+    }
+}
+
+/******************* "src\Message.java" ********************/
+
+import java.util.Date;
+
+public class Message {
+    public String u, v;
+    public String usex;
+    public String msg;
+    public long time;
+
+    public Message(String sender, String usex, String receiver, String msg, long time) {
+        u = sender == null ? "null" : sender;
+        this.usex = usex == null ? "保密" : usex;
+        v = receiver == null ? "null" : receiver;
+        this.msg = msg == null ? "" : msg.replace("\\","\\\\").replace("\n","\\n");
+        this.time = time;
+    }
+
+    public String toJson() {
+        String name;
+        if ("all".equals(u)) name = u;
+        else name = String.format("%s(%s)", u, usex);
+        return String.format("{\"sender\":\"%s\",\"receiver\":\"%s\",\"msg\":\"%s\",\"time\":\"%s\"}", name, v, msg, new Date(time));
+    }
+
+    @Override
+    public String toString() {
+        return toJson();
+    }
+}
+
+/******************* "src\MessageListServlet.java" ********************/
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+
+
+@WebServlet("/msgs")
+public class MessageListServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        UserLastAccessUpdater.updateLastTime(req);
+        var con = req.getServletContext();
+        var name = req.getSession().getAttribute("name");
+        if (con.getAttribute("msgs") == null) con.setAttribute("msgs", new ArrayList<Message>());
+        ArrayList<Message> msgs = new ArrayList<>();
+        ((ArrayList<Message>) con.getAttribute("msgs")).forEach((msg) -> {
+            if (msg.v.equals(name) || "all".equals(msg.v) || msg.u.equals(name)) msgs.add(msg);
+        });
+        resp.getWriter().println(msgs);
+        //System.out.println(msgs);
+    }
+}
+
+/******************* "src\OnLineUsersServlet.java" ********************/
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+@WebServlet("/all-users")
+public class OnLineUsersServlet extends HttpServlet {
+    public static final long TIMEOUT=30000;
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        var out=resp.getWriter();
+        var con=req.getServletContext();
+        var users=(HashMap<String, UserInfo>) con.getAttribute("users");
+        long now=new Date().getTime();
+        List<String>tmp=new ArrayList<>();
+        users.forEach((name,user)->{if(now-TIMEOUT<user.time){tmp.add(user.toJson());}});
+        out.println(tmp);
+    }
+}
+
+/******************* "src\SendMessageServlet.java" ********************/
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+
+@WebServlet("/send")
+public class SendMessageServlet extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
+        UserLastAccessUpdater.updateLastTime(req);
+        var sess = req.getSession();
+        var con = req.getServletContext();
+        if (con.getAttribute("msgs") == null) con.setAttribute("msgs", new ArrayList<Message>());
+        var msgs = ((ArrayList<Message>) con.getAttribute("msgs"));
+        var msg=new Message((String) sess.getAttribute("name"),(String) sess.getAttribute("sex"),req.getParameter("to"),req.getParameter("msg"),sess.getLastAccessedTime());
+        msgs.add(msg);
+        con.setAttribute("msgs", msgs);
+        //System.out.println(req.getParameter("msg"));
+        resp.sendRedirect("index.html");
+    }
+}
+
+/******************* "src\UserInfo.java" ********************/
+
+public class UserInfo {
+    public String name;
+    public String sex;
+    public long time;
+    public UserInfo(String name,String sex,long time){
+        this.name=name==null?"null":name;
+        this.sex=sex==null?"null":sex;
+        this.time=time;
+    }
+    public String toJson(){
+        return String.format("{\"name\":\"%s\",\"sex\":\"%s\"}",name,sex);
+    }
+}
+
+/******************* "src\UserLastAccessUpdater.java" ********************/
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.HashMap;
+
+public class UserLastAccessUpdater {
+    public static void updateLastTime(HttpServletRequest req) throws IOException {
+        req.setCharacterEncoding("utf-8");
+        var sess = req.getSession();
+        var name = req.getParameter("name");
+        var sex = req.getParameter("sex");
+        var con = req.getServletContext();
+        if (con.getAttribute("users") == null) con.setAttribute("users", new HashMap<String, UserInfo>());
+        if (name != null) ((HashMap<String, UserInfo>) con.getAttribute("users"))
+                .put(name, new UserInfo(name, sex, sess.getLastAccessedTime()));
+    }
+}
+
+/******************* "web\css.css" ********************/
+
+body {
+    font-family: 'JetBrains Mono', "Hiragino Sans GB", Simsun, "Microsoft Yahei", Arial, sans-serif;
+    margin: 0;
+    background-image: url(https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg);
+    background-attachment: fixed;
+    font-size: 18px;
+}
+
+h1,
+h2 {
+    font-family: SimHei;
+}
+
+div.header {
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    height: 7%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+
+img.logo {
+    height: 60px;
+    width: 60px;
+    padding-bottom: -10px;
+    vertical-align: -15px;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: local('JetBrains Mono'), url('https://what-is-me.github.io/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Pfeffer Mediæval';
+    src: local('Pfeffer Mediæval'), url('https://what-is-me.github.io/font/PfefferMediaeval.otf') format('otf');
+}
+
+
+div.box {
+    display: block;
+    border-radius: 10px;
+    border: 1px #ddd solid;
+    background-color: #fff;
+    padding: 20px 26px !important;
+    margin: 0 auto;
+}
+
+input[type=text],
+input[type=number],
+input[type=tel],
+input[type=password],
+input[type=date],
+input[type=email],
+input[type=search],
+textarea,
+select {
+    background-color: #fff;
+    height: 24px;
+    padding: 3px 7px;
+    line-height: normal;
+    border: 1px solid #a6a6a6;
+    border-top-color: #949494;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgb(255 255 255 / 50%), 0 1px 0 rgb(0 0 0 / 7%) inset;
+    margin: 0 auto;
+    font-size: 16px;
+    vertical-align: middle;
+    width: 100%;
+}
+
+label {
+    display: block;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    font-weight: 700;
+    font-family: SimHei, "黑体";
+}
+
+input[type=radio],
+input[type=checkbox] {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    border: 1px solid #000;
+    overflow: hidden;
+    vertical-align: -13px;
+    text-align: center;
+    -webkit-appearance: none;
+    font: normal normal normal 14px/1 FontAwesome;
+    outline: 0;
+}
+
+input[type=radio]:checked:after,
+input[type=checkbox]:checked:after {
+    content: '\221A';
+    font-size: 15px;
+    text-align: center;
+    line-height: 17px;
+    color: #000;
+}
+
+.submit-button {
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    background-color: #66ccff;
+    color: #000;
+    border-width: 0;
+    border-radius: 5px;
+}
+
+input[type=text],
+input[type=number],
+input[type=tel],
+input[type=password],
+input[type=date],
+input[type=email],
+input[type=search],
+select,
+textarea,
+.submit-button,
+input[type=radio],
+input[type=checkbox],
+label {
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+time {
+    font-family: BenderLight;
+}
+
+code,
+pre {
+    font-family: "JetBrains Mono";
+}
+
+code {
+    margin: 0 !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0 3px !important;
+}
+
+pre {
+    margin: 6px 0;
+    background-color: transparent;
+}
+
+table {
+    font-size: 20px;
+    border: 0;
+    border-collapse: collapse;
+}
+
+table th {
+    border: #2bf solid 1px;
+    color: #222222;
+    background-color: #cfcfcf;
+    padding: 0 10px;
+}
+
+table td {
+    padding: 0px 8px;
+    border: #2bf solid 1px;
+    color: #c4c4c4;
+}
+
+table td:hover {
+    background-color: rgba(34, 187, 255, 0.5);
+}
+
+html,
+body {
+    height: 100%;
+    cursor: url(https://what-is-me.github.io/cursor-inner.png) 3 3, default;
+    position: static;
+}
+/******************* "web\index.html" ********************/
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <iframe style="width: 98%;height: 80%;" src="messages.html">
+    </iframe>
+    <form style="width: 98%;height: 18%;position:relative" id="input-box"
+        method="post" action="send">
+        <select name="to" id="send-to"
+            style="position:absolute;width:30%;height: 20%;top:5%">
+        </select>
+        <textarea name="msg"
+            style="position:absolute;width:89%;height: 60%;top:30%"></textarea>
+        <input type="submit" value="发送"
+            style="position:absolute;width:10%;height: 60%;left:91%;top:30%">
+    </form>
+    <script>
+        var name = ""
+        function updateSelect() {
+            const select = document.getElementById("send-to")
+            httpRequest.open('GET', 'all-users', true)
+            httpRequest.send();
+            httpRequest.onreadystatechange = function () {
+                select.innerHTML = "<option value='all'>==所有人==</option>"
+                if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                    for (const user of JSON.parse(httpRequest.responseText)) {
+                        if (user["name"] != name)
+                            select.innerHTML += "<option value='" + user["name"] + "'>" + user["name"] + "(" + user["sex"] + ")" + "</option>"
+                    }
+                }
+            };
+        }
+        const httpRequest = new XMLHttpRequest()
+        httpRequest.open('GET', 'user-info', true)
+        httpRequest.send();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                const user_info = JSON.parse(httpRequest.responseText)
+                name = user_info["name"]
+                const sex = user_info["sex"]
+                console.log(name, sex)
+                if (name === "null") {
+                    window.location.href = "login.html"
+                }
+                document.head.title = name + "(" + sex + ")";
+                updateSelect();
+            }
+        };
+    </script>
+</body>
+
+
+</html>
+/******************* "web\login.html" ********************/
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' type='text/css' href='css.css'>
+  <title>登录</title>
+</head>
+
+<body>
+  <div class="box"
+    style="position:absolute;width: 320px;left:50%;top:50%;transform: translate(-50%,-50%);">
+    <h1 style="text-align:center">登入</h1>
+    <form method="post" action="login">
+      <label>
+        姓名:
+        <input type="text" name="name" style="width:70%;height:30px">
+      </label>
+      <label>
+        性别:
+        <select name="sex" style="width:70%;height:30px">
+          <option value="男">男</option>
+          <option value="女">女</option>
+        </select>
+      </label>
+      <input type="submit" class="submit-button">
+    </form>
+  </div>
+</body>
+
+</html>
+/******************* "web\messages.html" ********************/
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="5">
+    <title>Document</title>
+    <script
+        src="https://cdn.bootcdn.net/ajax/libs/marked/2.0.3/marked.js"></script>
+</head>
+
+<body>
+    <script>
+        const httpRequest = new XMLHttpRequest()
+        httpRequest.open('GET', 'msgs', true)
+        httpRequest.send();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                const msgs = JSON.parse(httpRequest.responseText)
+                for (const msg of msgs) {
+                    formatMessage = "<span style='font-weight: bold;'>" + msg["sender"]
+                    if (msg["receiver"] != "all") formatMessage += "(私聊" + msg["receiver"] + ")"
+                    formatMessage += "</span>"
+                    formatMessage += "<span style='color: gray;font-style: italic;'>[" + msg["time"] + "]</span><br>"
+                    formatMessage += marked(msg["msg"])
+                    console.log(marked(msg["msg"]))
+                    document.body.innerHTML += formatMessage
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>

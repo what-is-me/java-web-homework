@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script lang="javascript"
+            src="https://github.com/yetrun/json5-to-table/releases/download/0.1.8/json5-to-table.js"></script>
+    </script>
+    <script>
+        const {
+            generateTable,
+            generateHTMLTable,
+            generateExcel,
+            parseDataToSchema
+        } = JSON5_TO_TABLE
+    </script>
+    <style>
+        #search-result {
+            width: 80%;
+            height: 30%;
+            margin-left: 9%;
+            margin-right: 9%;
+        }
+
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <title>用户</title>
+</head>
+<body>
+<div id="search-result"></div>
+<div class="input">
+    <label>用户编号
+        <input type="text" id="id">
+    </label>
+    <br>
+    <label>
+        用户名字<input type="text" id="name">
+    </label>
+    <br>
+    <label>
+        用户邮箱<input type="text" id="email">
+    </label>
+    <br>
+    <label>
+        用户余额<input type="text" id="money">
+    </label>
+    <br>
+    <button id="search">查询</button>
+    <button id="add">添加</button>
+    <button id="delete">删除</button>
+</div>
+<script>
+
+    function search(id) {
+        function callback(data, status) {
+            let sr = $("#search-result")
+            sr.empty()
+            data = JSON.parse(data)
+            const shema = [
+                {title: '用户编号', path: 'id'},
+                {title: '用户姓名', path: 'name'},
+                {title: '用户邮箱', path: 'email'},
+                {title: '用户余额', path: 'money'}
+            ]
+            data = generateHTMLTable(data, shema, {parseDataToSchema: 'stack'})
+            sr.append(data)
+        }
+
+        if (id == null) {
+            $.get("customer", callback)
+        } else {
+            $.get("customer?id=" + id, callback)
+        }
+    }
+
+    $("#search").click(function () {
+        search($("#id").val())
+    })
+    $("#add").click(function () {
+        const customer = {
+            "id": $("#id").val(),
+            "name": $("#name").val(),
+            "email": $("#email").val(),
+            "money": $("#money").val()
+        }
+        $.post("customer", customer, function (statu) {
+            search()
+        })
+    })
+    $("#delete").click(function () {
+        $.ajax({
+            type: 'delete',
+            url: 'customer?id=' + $("#id").val(),
+            dataType: 'json',
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            success: function (data) {
+                if (data.status === 200) {
+                    search()
+                    alert('删除成功')
+                }
+            }
+        })
+        search()
+    })
+    search()
+</script>
+</body>
+</html>

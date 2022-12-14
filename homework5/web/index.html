@@ -1,0 +1,60 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <iframe style="width: 98%;height: 80%;" src="messages.html">
+    </iframe>
+    <form style="width: 98%;height: 18%;position:relative" id="input-box"
+        method="post" action="send">
+        <select name="to" id="send-to"
+            style="position:absolute;width:30%;height: 20%;top:5%">
+        </select>
+        <textarea name="msg"
+            style="position:absolute;width:89%;height: 60%;top:30%"></textarea>
+        <input type="submit" value="发送"
+            style="position:absolute;width:10%;height: 60%;left:91%;top:30%">
+    </form>
+    <script>
+        var name = ""
+        function updateSelect() {
+            const select = document.getElementById("send-to")
+            httpRequest.open('GET', 'all-users', true)
+            httpRequest.send();
+            httpRequest.onreadystatechange = function () {
+                select.innerHTML = "<option value='all'>==所有人==</option>"
+                if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                    for (const user of JSON.parse(httpRequest.responseText)) {
+                        if (user["name"] !== name)
+                            select.innerHTML += "<option value='" + user["name"] + "'>" + user["name"] + "(" + user["sex"] + ")" + "</option>"
+                    }
+                }
+            };
+        }
+        const httpRequest = new XMLHttpRequest()
+        httpRequest.open('GET', 'user-info', true)
+        httpRequest.send();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+                const user_info = JSON.parse(httpRequest.responseText)
+                name = user_info["name"]
+                const sex = user_info["sex"]
+                console.log(name, sex)
+                if (name === "null") {
+                    window.location.href = "login.html"
+                }
+                document.head.title = name + "(" + sex + ")";
+                updateSelect();
+            }
+        };
+    </script>
+</body>
+
+
+</html>
